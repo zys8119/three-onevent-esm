@@ -1,0 +1,26 @@
+{
+    "name": "three-onevent-esm",
+    "version": "0.0.1",
+    "description": "threejs物体事件捕获绑定",
+    "main": "dist/onEvent.js",
+    "types": "src/onEvent.d.ts",
+    "type": "module",
+    "scripts": {
+        "build": "ts-node-esm build.ts && tsc -d src/onEvent.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zys8119/three-onevent-esm.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/zys8119/three-onevent-esm/issues"
+    },
+    "homepage": "https://github.com/zys8119/three-onevent-esm#readme",
+    "devDependencies": {
+        "esbuild": "^0.17.15",
+        "three": "^0.151.3",
+        "ts-node": "^10.9.1"
+    }
+}
