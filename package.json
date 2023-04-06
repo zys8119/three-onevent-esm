@@ -6,7 +6,7 @@
     "types": "src/onEvent.d.ts",
     "type": "module",
     "scripts": {
-        "build": "ts-node-esm build.ts && tsc -d src/onEvent.ts"
+        "build": "ts-node-esm build.ts && tsc -d src/onEvent.ts && rimraf src/onEvent.js"
     },
     "repository": {
         "type": "git",
@@ -20,6 +20,7 @@
     "homepage": "https://github.com/zys8119/three-onevent-esm#readme",
     "devDependencies": {
         "esbuild": "^0.17.15",
+        "rimraf": "^4.4.1",
         "three": "^0.151.3",
         "ts-node": "^10.9.1"
     }
