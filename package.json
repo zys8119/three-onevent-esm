@@ -1,6 +1,6 @@
 {
     "name": "three-onevent-esm",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "threejs物体事件捕获绑定",
     "main": "dist/onEvent.js",
     "types": "src/onEvent.d.ts",

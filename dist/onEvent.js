@@ -59,77 +59,99 @@ class TargetList {
     };
     this.updateCallbackList.push(gazeListener);
   }
-  click(targetList, camera) {
+  click(targetList, camera, el) {
     var targetObject, obj, Click = false, Down = false;
     var Mouse = new Raycaster();
     function down(event) {
-      if (!targetList)
-        return;
-      var list = [];
-      Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
-      list = getObjList(targetList);
-      var intersects = Mouse.intersectObjects(list);
-      if (intersects.length > 0) {
-        if (Click)
+      var _a;
+      const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
+      if (el && path.includes(el) || !el) {
+        event.preventDefault();
+        if (!targetList)
           return;
-        Click = true;
-        targetObject = intersects[0].object;
-        obj = getEventObj(targetList, targetObject);
-      } else {
-        Click = false;
+        var list = [];
+        Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+        list = getObjList(targetList);
+        var intersects = Mouse.intersectObjects(list);
+        if (intersects.length > 0) {
+          if (Click)
+            return;
+          Click = true;
+          targetObject = intersects[0].object;
+          obj = getEventObj(targetList, targetObject);
+        } else {
+          Click = false;
+        }
       }
     }
     function move(event) {
-      if (Click)
-        Click = false;
+      var _a;
+      const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
+      if (el && path.includes(el) || !el) {
+        event.preventDefault();
+        if (Click)
+          Click = false;
+      }
     }
     function up(event) {
-      if (Click && !!obj.callback[0])
-        obj.callback[0](targetObject);
-      Click = false;
+      var _a;
+      const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
+      if (el && path.includes(el) || !el) {
+        event.preventDefault();
+        if (Click && !!obj.callback[0])
+          obj.callback[0](targetObject);
+        Click = false;
+      }
     }
     window.addEventListener("mousedown", down, false);
     window.addEventListener("mousemove", move, false);
     window.addEventListener("mouseup", up, false);
   }
-  hover(targetList, camera) {
+  hover(targetList, camera, el) {
     var targetObject, obj, Hover = false;
     var Mouse = new Raycaster();
     window.addEventListener("mousemove", function(event) {
-      if (!targetList)
-        return;
-      var list = [];
-      Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
-      list = getObjList(targetList);
-      var intersects = Mouse.intersectObjects(list);
-      if (intersects.length > 0) {
-        if (Hover)
+      var _a;
+      const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
+      if (el && path.includes(el) || !el) {
+        event.preventDefault();
+        if (!targetList)
           return;
-        Hover = true;
-        targetObject = intersects[0].object;
-        obj = getEventObj(targetList, targetObject);
-        if (!!obj.callback[0])
-          obj.callback[0](targetObject);
-      } else {
-        if (Hover && !!obj.callback[1]) {
-          obj.callback[1](targetObject);
+        var list = [];
+        Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+        list = getObjList(targetList);
+        var intersects = Mouse.intersectObjects(list);
+        if (intersects.length > 0) {
+          if (Hover)
+            return;
+          Hover = true;
+          targetObject = intersects[0].object;
+          obj = getEventObj(targetList, targetObject);
+          if (!!obj.callback[0])
+            obj.callback[0](targetObject);
+        } else {
+          if (Hover && !!obj.callback[1]) {
+            obj.callback[1](targetObject);
+          }
+          Hover = false;
         }
-        Hover = false;
       }
     }, false);
   }
 }
 export default class onEvent {
-  constructor(scene, camera) {
+  constructor(scene, camera, el) {
     this.scene = scene;
     this.camera = camera;
+    this.el = el;
     this.updateCallbackList = [];
     this.TargetList = new TargetList(this.updateCallbackList);
     this.EventListeners = {};
     this.listenerList = this.TargetList;
     this.option = {
       scene,
-      camera
+      camera,
+      el
     };
     Object.keys(this.TargetList).concat([
       "gaze",
@@ -139,7 +161,7 @@ export default class onEvent {
       this.EventListeners[v] = {
         flag: false,
         listener: (targetList) => {
-          this.listenerList[v](targetList, this.option.camera);
+          this.listenerList[v](targetList, this.option.camera, this.option.el);
         }
       };
     });

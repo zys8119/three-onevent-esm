@@ -63,67 +63,79 @@ class TargetList {
         }
         this.updateCallbackList.push(gazeListener);
     }
-    click(targetList, camera) {
+    click(targetList, camera, el) {
         var targetObject, obj, Click = false, Down = false;
         var Mouse = new Raycaster();
 
         function down(event) {
-            // event.preventDefault();
-            if (!targetList) return;
-            var list = [];
-            Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
-            list = getObjList(targetList);
-            var intersects = Mouse.intersectObjects(list);
+            const path = (event as any).path || event.composedPath?.() || []
+            if((el && path.includes(el)) || !el){
+                event.preventDefault();
+                if (!targetList) return;
+                var list = [];
+                Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+                list = getObjList(targetList);
+                var intersects = Mouse.intersectObjects(list);
 
-            if (intersects.length > 0) { // mouse down trigger
-                if (Click) return;
-                Click = true;
-                targetObject = intersects[0].object;
-                obj = getEventObj(targetList, targetObject);
-            } else {
-                Click = false;
+                if (intersects.length > 0) { // mouse down trigger
+                    if (Click) return;
+                    Click = true;
+                    targetObject = intersects[0].object;
+                    obj = getEventObj(targetList, targetObject);
+                } else {
+                    Click = false;
+                }
             }
         }
 
         function move(event) {
-            // event.preventDefault();
-            // disable click trigger when mouse moving
-            if (Click) Click = false;
+            const path = (event as any).path || event.composedPath?.() || []
+            if((el && path.includes(el)) || !el){
+                event.preventDefault();
+                // disable click trigger when mouse moving
+                if (Click) Click = false;
+            }
         }
 
         function up(event) {
-            // event.preventDefault();
-            if (Click && !!obj.callback[0]) obj.callback[0](targetObject);
-            Click = false;
+            const path = (event as any).path || event.composedPath?.() || []
+            if((el && path.includes(el)) || !el){
+                event.preventDefault();
+                if (Click && !!obj.callback[0]) obj.callback[0](targetObject);
+                Click = false;
+            }
         }
 
         window.addEventListener('mousedown', down, false);
         window.addEventListener('mousemove', move, false);
         window.addEventListener('mouseup', up, false);
     }
-    hover(targetList, camera) {
+    hover(targetList, camera, el) {
         var targetObject, obj, Hover = false;
         var Mouse = new Raycaster();
         window.addEventListener('mousemove', function (event) {
-            // event.preventDefault();
-            if (!targetList) return;
-            var list = [];
-            Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+            const path = (event as any).path || event.composedPath?.() || []
+            if((el && path.includes(el)) || !el){
+                event.preventDefault();
+                if (!targetList) return;
+                var list = [];
+                Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
 
-            list = getObjList(targetList);
-            var intersects = Mouse.intersectObjects(list);
+                list = getObjList(targetList);
+                var intersects = Mouse.intersectObjects(list);
 
-            if (intersects.length > 0) {
-                if (Hover) return;
-                Hover = true;
-                targetObject = intersects[0].object;
-                obj = getEventObj(targetList, targetObject);
-                if (!!obj.callback[0]) obj.callback[0](targetObject);
-            } else {
-                if (Hover && !!obj.callback[1]) {
-                    obj.callback[1](targetObject);
+                if (intersects.length > 0) {
+                    if (Hover) return;
+                    Hover = true;
+                    targetObject = intersects[0].object;
+                    obj = getEventObj(targetList, targetObject);
+                    if (!!obj.callback[0]) obj.callback[0](targetObject);
+                } else {
+                    if (Hover && !!obj.callback[1]) {
+                        obj.callback[1](targetObject);
+                    }
+                    Hover = false;
                 }
-                Hover = false;
             }
         }, false)
     }
@@ -134,7 +146,7 @@ export default class onEvent {
     EventListeners:Record<any, any>
     listenerList:Record<any, any>
     option:Record<any, any>
-    constructor(public scene:Scene, public camera:Camera) {
+    constructor(public scene:Scene, public camera:Camera, public el:HTMLCanvasElement) {
         this.updateCallbackList = [];
         this.TargetList = new TargetList(this.updateCallbackList);
         this.EventListeners = {}
@@ -142,6 +154,7 @@ export default class onEvent {
         this.option = {
             scene,
             camera,
+            el,
         };
         Object.keys(this.TargetList).concat([
             'gaze',
@@ -151,7 +164,7 @@ export default class onEvent {
             this.EventListeners[v] = {
                 flag: false,
                 listener: (targetList)=> {
-                    this.listenerList[v](targetList, this.option.camera);
+                    this.listenerList[v](targetList, this.option.camera, this.option.el);
                 }
             };
         });
