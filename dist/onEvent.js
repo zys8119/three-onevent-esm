@@ -63,7 +63,6 @@ class TargetList {
     var targetObject, obj, Click = false, Down = false;
     var Mouse = new Raycaster();
     function down(event) {
-      event.preventDefault();
       if (!targetList)
         return;
       var list = [];
@@ -81,12 +80,10 @@ class TargetList {
       }
     }
     function move(event) {
-      event.preventDefault();
       if (Click)
         Click = false;
     }
     function up(event) {
-      event.preventDefault();
       if (Click && !!obj.callback[0])
         obj.callback[0](targetObject);
       Click = false;
@@ -99,7 +96,6 @@ class TargetList {
     var targetObject, obj, Hover = false;
     var Mouse = new Raycaster();
     window.addEventListener("mousemove", function(event) {
-      event.preventDefault();
       if (!targetList)
         return;
       var list = [];

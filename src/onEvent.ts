@@ -68,7 +68,7 @@ class TargetList {
         var Mouse = new Raycaster();
 
         function down(event) {
-            event.preventDefault();
+            // event.preventDefault();
             if (!targetList) return;
             var list = [];
             Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
@@ -86,13 +86,13 @@ class TargetList {
         }
 
         function move(event) {
-            event.preventDefault();
+            // event.preventDefault();
             // disable click trigger when mouse moving
             if (Click) Click = false;
         }
 
         function up(event) {
-            event.preventDefault();
+            // event.preventDefault();
             if (Click && !!obj.callback[0]) obj.callback[0](targetObject);
             Click = false;
         }
@@ -105,7 +105,7 @@ class TargetList {
         var targetObject, obj, Hover = false;
         var Mouse = new Raycaster();
         window.addEventListener('mousemove', function (event) {
-            event.preventDefault();
+            // event.preventDefault();
             if (!targetList) return;
             var list = [];
             Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
