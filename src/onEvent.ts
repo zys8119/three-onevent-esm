@@ -70,10 +70,10 @@ class TargetList {
         function down(event) {
             const path = (event as any).path || event.composedPath?.() || []
             if((el && path.includes(el)) || !el){
-                event.preventDefault();
+                // event.preventDefault();
                 if (!targetList) return;
                 var list = [];
-                Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+                Mouse.setFromCamera(new Vector2(((event.clientX - el.getBoundingClientRect().x) / (el.width || window.innerWidth)) * 2 - 1, -((event.clientY - el.getBoundingClientRect().y) / (el.height || window.innerHeight)) * 2 + 1), camera);
                 list = getObjList(targetList);
                 var intersects = Mouse.intersectObjects(list);
 
@@ -91,7 +91,7 @@ class TargetList {
         function move(event) {
             const path = (event as any).path || event.composedPath?.() || []
             if((el && path.includes(el)) || !el){
-                event.preventDefault();
+                // event.preventDefault();
                 // disable click trigger when mouse moving
                 if (Click) Click = false;
             }
@@ -100,7 +100,7 @@ class TargetList {
         function up(event) {
             const path = (event as any).path || event.composedPath?.() || []
             if((el && path.includes(el)) || !el){
-                event.preventDefault();
+                // event.preventDefault();
                 if (Click && !!obj.callback[0]) obj.callback[0](targetObject);
                 Click = false;
             }
@@ -116,11 +116,10 @@ class TargetList {
         window.addEventListener('mousemove', function (event) {
             const path = (event as any).path || event.composedPath?.() || []
             if((el && path.includes(el)) || !el){
-                event.preventDefault();
+                // event.preventDefault();
                 if (!targetList) return;
                 var list = [];
-                Mouse.setFromCamera(new Vector2((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
-
+                Mouse.setFromCamera(new Vector2(((event.clientX - el.getBoundingClientRect().x) / (el.width || window.innerWidth)) * 2 - 1, -((event.clientY - el.getBoundingClientRect().y) / (el.height || window.innerHeight)) * 2 + 1), camera);
                 list = getObjList(targetList);
                 var intersects = Mouse.intersectObjects(list);
 
@@ -146,7 +145,7 @@ export default class onEvent {
     EventListeners:Record<any, any>
     listenerList:Record<any, any>
     option:Record<any, any>
-    constructor(public scene:Scene, public camera:Camera, public el:HTMLCanvasElement) {
+    constructor(public scene:Scene, public camera:Camera, public el?:HTMLCanvasElement) {
         this.updateCallbackList = [];
         this.TargetList = new TargetList(this.updateCallbackList);
         this.EventListeners = {}

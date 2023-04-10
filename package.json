@@ -1,12 +1,12 @@
 {
     "name": "three-onevent-esm",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "threejs物体事件捕获绑定",
     "main": "dist/onEvent.js",
-    "types": "src/onEvent.d.ts",
+    "types": "dist/onEvent.d.ts",
     "type": "module",
     "scripts": {
-        "build": "ts-node-esm build.ts && tsc -d src/onEvent.ts && rimraf src/onEvent.js"
+        "build": "rimraf dist && tsc src/onEvent.ts -d -outdir dist  && esbuild src/onEvent.ts --outdir=dist --format=esm --watch"
     },
     "repository": {
         "type": "git",

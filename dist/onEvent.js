@@ -66,11 +66,10 @@ class TargetList {
       var _a;
       const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
       if (el && path.includes(el) || !el) {
-        event.preventDefault();
         if (!targetList)
           return;
         var list = [];
-        Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+        Mouse.setFromCamera(new Vector2((event.clientX - el.getBoundingClientRect().x) / (el.width || window.innerWidth) * 2 - 1, -((event.clientY - el.getBoundingClientRect().y) / (el.height || window.innerHeight)) * 2 + 1), camera);
         list = getObjList(targetList);
         var intersects = Mouse.intersectObjects(list);
         if (intersects.length > 0) {
@@ -88,7 +87,6 @@ class TargetList {
       var _a;
       const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
       if (el && path.includes(el) || !el) {
-        event.preventDefault();
         if (Click)
           Click = false;
       }
@@ -97,7 +95,6 @@ class TargetList {
       var _a;
       const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
       if (el && path.includes(el) || !el) {
-        event.preventDefault();
         if (Click && !!obj.callback[0])
           obj.callback[0](targetObject);
         Click = false;
@@ -114,11 +111,10 @@ class TargetList {
       var _a;
       const path = event.path || ((_a = event.composedPath) == null ? void 0 : _a.call(event)) || [];
       if (el && path.includes(el) || !el) {
-        event.preventDefault();
         if (!targetList)
           return;
         var list = [];
-        Mouse.setFromCamera(new Vector2(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1), camera);
+        Mouse.setFromCamera(new Vector2((event.clientX - el.getBoundingClientRect().x) / (el.width || window.innerWidth) * 2 - 1, -((event.clientY - el.getBoundingClientRect().y) / (el.height || window.innerHeight)) * 2 + 1), camera);
         list = getObjList(targetList);
         var intersects = Mouse.intersectObjects(list);
         if (intersects.length > 0) {
@@ -139,7 +135,7 @@ class TargetList {
     }, false);
   }
 }
-export default class onEvent {
+class onEvent {
   constructor(scene, camera, el) {
     this.scene = scene;
     this.camera = camera;
@@ -213,3 +209,6 @@ export default class onEvent {
     }
   }
 }
+export {
+  onEvent as default
+};
