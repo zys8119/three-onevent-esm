@@ -6,7 +6,7 @@
     "types": "dist/onEvent.d.ts",
     "type": "module",
     "scripts": {
-        "build": "rimraf dist && tsc src/onEvent.ts -d -outdir dist  && esbuild src/onEvent.ts --outdir=dist --format=esm --watch"
+        "build": "rimraf dist && tsc src/onEvent.ts -d -outdir dist  && esbuild src/onEvent.ts --outdir=dist --format=esm"
     },
     "repository": {
         "type": "git",
