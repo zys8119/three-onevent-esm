@@ -1,27 +1,25 @@
 {
-    "name": "three-onevent-esm",
-    "version": "0.0.5",
-    "description": "threejs物体事件捕获绑定",
-    "main": "dist/onEvent.js",
-    "types": "dist/onEvent.d.ts",
-    "type": "module",
-    "scripts": {
-        "build": "rimraf dist && tsc src/onEvent.ts -d -outdir dist  && esbuild src/onEvent.ts --outdir=dist --format=esm"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/zys8119/three-onevent-esm.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/zys8119/three-onevent-esm/issues"
-    },
-    "homepage": "https://github.com/zys8119/three-onevent-esm#readme",
-    "devDependencies": {
-        "esbuild": "^0.17.15",
-        "rimraf": "^4.4.1",
-        "three": "^0.151.3",
-        "ts-node": "^10.9.1"
-    }
+	"name": "three-onevent-esm",
+	"version": "0.0.6",
+	"main": "index.js",
+	"scripts": {
+		"build": "vite build"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"vue": "^3.4.27",
+		"@types/fs-extra": "^11.0.4",
+		"@types/node": "^20.12.12",
+		"@types/strip-comments": "^2.0.4",
+		"@vitejs/plugin-vue": "^5.0.4",
+		"fast-glob": "^3.3.2",
+		"fs-extra": "^11.2.0",
+		"less": "^4.2.0",
+		"rollup": "^4.18.0",
+		"strip-comments": "^2.0.1",
+		"terser": "^5.31.0",
+		"three": "^0.165.0",
+		"vite": "^5.2.11"
+	}
 }

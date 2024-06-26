@@ -72,6 +72,7 @@ class TargetList {
         const Mouse = new Raycaster();
 
         function down(event: any) {
+            console.log(222)
             const path = (event as any).path || event.composedPath?.() || [];
             if ((el && path.includes(el)) || !el) {
                 // event.preventDefault();
@@ -157,7 +158,7 @@ class TargetList {
         );
     }
 }
-export default class onEvent {
+export default class index {
     TargetList: TargetList;
     updateCallbackList: any[];
     EventListeners: Record<any, any>;
@@ -166,7 +167,7 @@ export default class onEvent {
     constructor(
         public scene: Scene,
         public camera: Camera,
-        public el?: HTMLCanvasElement
+        public el?: HTMLElement
     ) {
         this.updateCallbackList = [];
         this.TargetList = new TargetList(this.updateCallbackList);
