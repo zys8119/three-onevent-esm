@@ -1,4 +1,4 @@
-import { Scene, Camera } from "three";
+import { Scene, Camera } from 'three';
 declare class TargetList {
     updateCallbackList: any[];
     constructor(updateCallbackList?: any[]);
@@ -17,7 +17,7 @@ export default class onEvent {
     option: Record<any, any>;
     constructor(scene: Scene, camera: Camera, el?: HTMLCanvasElement);
     init(): void;
-    removeAll(): void;
+    removeAll(this: any): void;
     update(): void;
 }
 export {};
