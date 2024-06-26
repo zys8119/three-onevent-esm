@@ -75,6 +75,7 @@ export default defineConfig({
                 json.scripts = {}
                 json.devDependencies = {}
                 fsExtra.writeJSONSync(out, json, {spaces: 4})
+                fsExtra.copy(resolve(__dirname,'README.md'),resolve(__dirname,'dist/README.md'))
                 execSync("tsc  src/*  --emitDeclarationOnly -d --outDir dist")
             },
         }
