@@ -14,7 +14,9 @@ npm i three-onevent-esm
 
 ```typescript
 import onEvent from "three-onevent-esm"
-new onEvent(scene, camera)
+// 请确保canvasRef或其父元素已设置了宽高
+const canvasRef = ref()
+new onEvent(scene, camera, canvasRef.value)
 
 // 鼠标点击监听
 object3d.on("click", (object3d)=>{
