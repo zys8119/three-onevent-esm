@@ -244,3 +244,9 @@ export default class index {
         }
     }
 }
+//@ts-ignore
+declare module "three" {
+    interface Object3D  {
+        on(method: 'click' | 'hover' | 'gaze', callback: (object:Object3D)=> void): void;
+    }
+}
