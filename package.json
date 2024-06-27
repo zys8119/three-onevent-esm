@@ -1,7 +1,8 @@
 {
 	"name": "three-onevent-esm",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"build": "vite build"
 	},
