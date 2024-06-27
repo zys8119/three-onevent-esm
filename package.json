@@ -1,12 +1,26 @@
 {
 	"name": "three-onevent-esm",
-	"version": "0.0.10",
-	"main": "index.js",
-	"module": "index.js",
+	"version": "0.0.14",
+	"main": "./index.js",
+	"module": "./index.js",
 	"types": "index.d.ts",
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./index.js",
+			"require": "./index.js"
+		}
+	},
 	"scripts": {
 		"build": "vite build"
+	},
+	"peerDependencies": {
+		"three": "^0.160.0"
+	},
+	"peerDependenciesMeta": {
+		"three": {
+			"optional": true
+		}
 	},
 	"dependencies": {
 		"three": "^0.165.0"

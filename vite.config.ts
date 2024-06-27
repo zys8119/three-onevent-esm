@@ -90,11 +90,13 @@ export default defineConfig({
                 return a
             },{}),
             external: ["vue",'fs','path','three'],
-            output:{
-                entryFileNames: `[name].js`,
-                chunkFileNames: `[name].js`,
-                assetFileNames: `[name].[ext]`,
-            }
+            output:[
+                {
+                    entryFileNames: `[name].js`,
+                    chunkFileNames: `[name].js`,
+                    assetFileNames: `[name].[ext]`,
+                },
+            ]
         },
         watch:{},
     },
