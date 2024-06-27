@@ -1,12 +1,15 @@
 {
 	"name": "three-onevent-esm",
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"main": "index.js",
+	"module": "index.js",
+	"types": "index.d.ts",
 	"type": "module",
 	"scripts": {
 		"build": "vite build"
 	},
 	"dependencies": {
+		"three": "^0.165.0"
 	},
 	"devDependencies": {
 		"vue": "^3.4.27",
@@ -20,7 +23,6 @@
 		"rollup": "^4.18.0",
 		"strip-comments": "^2.0.1",
 		"terser": "^5.31.0",
-		"three": "^0.165.0",
 		"vite": "^5.2.11"
 	}
 }

@@ -3,8 +3,6 @@
         "module": "esnext",
         "target": "esnext",
         "moduleResolution": "Node",
-        "sourceMap": true,
-        "noEmitHelpers": true,
         "lib": [
             "es2015",
             "dom"

@@ -72,7 +72,6 @@ class TargetList {
         const Mouse = new Raycaster();
 
         function down(event: any) {
-            console.log(222)
             const path = (event as any).path || event.composedPath?.() || [];
             if ((el && path.includes(el)) || !el) {
                 // event.preventDefault();
